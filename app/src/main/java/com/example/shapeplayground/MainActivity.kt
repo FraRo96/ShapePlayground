@@ -16,12 +16,12 @@ import com.example.shapeplayground.ui.theme.ShapePlaygroundTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
             ShapePlaygroundTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Screen(modifier = Modifier.padding(innerPadding))
-                }
+                //Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Screen(modifier = Modifier)
+                //}
             }
         }
     }

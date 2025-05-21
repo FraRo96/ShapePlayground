@@ -16,15 +16,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asComposePath
-import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.Morph
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.circle
 import androidx.graphics.shapes.toPath
 import com.example.shapeplayground.ui.theme.ShapePlaygroundTheme
+
+val resolutionRatio = 2.22f
 
 @Composable
 fun Screen(modifier: Modifier = Modifier) {
@@ -54,13 +55,19 @@ fun Screen(modifier: Modifier = Modifier) {
                     centerX = size.width / 2,
                     centerY = size.height / 2
                 )
-                val path = exagon.toComposePath()
+                val basicPath = exagon.toComposePath()
                 val morphPath = Morph(start = exagon, end = circle).toComposePath(progress = morphProgress)
                 onDrawBehind {
                     drawPath(path = morphPath, color = Color.Cyan.copy(0.9f))
-                    scale(scale = 0.1f, pivot = Offset(size.width / 2, size.height / 2)) {
-                        drawPath(path = path, color = Color.Red.copy(0.9f))
-                    }
+                    //scale(scale = 0.1f, pivot = Offset(size.width / 2, size.height / 2)) {
+                        translate(left = -size.width / 2, top = -size.height / 2) {
+                            scale(scale = 0.1f) {
+                                translate(left = size.width / 2, top = size.height / (2 * resolutionRatio)) {
+                                    drawPath(path = basicPath, color = Color.Red.copy(0.9f))
+                                }
+                            }
+                        }
+                    //}
                     //drawPath(path = path, color = Color.Red.copy(0.9f))
                 }
             }.fillMaxSize()

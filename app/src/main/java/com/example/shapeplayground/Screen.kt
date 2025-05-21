@@ -12,10 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.asComposePath
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.Morph
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.circle
@@ -54,6 +58,9 @@ fun Screen(modifier: Modifier = Modifier) {
                 val morphPath = Morph(start = exagon, end = circle).toComposePath(progress = morphProgress)
                 onDrawBehind {
                     drawPath(path = morphPath, color = Color.Cyan.copy(0.9f))
+                    scale(scale = 0.1f, pivot = Offset(size.width / 2, size.height / 2)) {
+                        drawPath(path = path, color = Color.Red.copy(0.9f))
+                    }
                     //drawPath(path = path, color = Color.Red.copy(0.9f))
                 }
             }.fillMaxSize()
